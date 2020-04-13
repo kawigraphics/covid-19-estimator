@@ -120,6 +120,49 @@ function infectionsByRequestedTime($data)
 
 
 
+/**
+ * ===========================================================================
+ * CHALLENGE TWO (2)
+ * ===========================================================================
+ *
+ * (i) Determine 15% of infections By Requested Time
+ * (ii) Determine the number of available beds 35% basing on severeCasesByRequestedTime()
+ */
+
+// severe positive cases that will require hospitalization to recover
+function severeCasesByRequestedTime($data)
+{
+	// Determine 15% of infections By Requested Time
+	$impact = (infectionsByRequestedTime($data)['impact']) * 0.15;
+	$severe_impact = (infectionsByRequestedTime($data)['severe_impact']) * 0.15;
+
+	// Return Severe Cases
+	return array(
+		'impact' => $impact,
+		'severe_impact' => $severe_impact
+	);
+}
+
+// Determine the number of available beds 35% basing on severeCasesByRequestedTime()
+function hospitalBedsByRequestedTime($data)
+{
+	// 35% Hospital Beds Available
+	$total_hospital_beds = $data['totalHospitalBeds'];
+	$available_hospital_beds = $total_hospital_beds * 0.35;
+
+	// Bed Shottage
+	$impact = $available_hospital_beds - severeCasesByRequestedTime($data)['impact'];
+	$severe_impact = $available_hospital_beds - severeCasesByRequestedTime($data)['severe_impact'];
+
+	// Return Available Beds or Shotage
+	return array(
+		'impact' => $impact,
+		'severe_impact' => $severe_impact
+	);
+}
+
+
+
 
 /**
  * Main Covid19 Impact Estimator Method
@@ -135,17 +178,25 @@ function covid19ImpactEstimator($data)
 	$severe_impact = severeImpact($data);
 	$infections_by_requested_time = infectionsByRequestedTime($data);
 
+	// Challenge 2
+	$severe_cases_by_requested_time = severeCasesByRequestedTime($data);
+	$hospital_beds_by_requested_time = hospitalBedsByRequestedTime($data);
+
 
 	// Output Data Structure
 	$data = [
 		'data' => $data,
 		'impact' => [
 			'currentlyInfected' => (int) $currently_infected,
-			'infectionsByRequestedTime' => (int) $infections_by_requested_time['impact']
+			'infectionsByRequestedTime' => (int) $infections_by_requested_time['impact'],
+			'severeCasesByRequestedTime' => (int) $severe_cases_by_requested_time['impact'],
+			'hospitalBedsByRequestedTime' => (int) $hospital_beds_by_requested_time['impact']
 		],
 		'severeImpact' => [
 			'currentlyInfected' => (int) $severe_impact,
-			'infectionsByRequestedTime' => (int) $infections_by_requested_time['severe_impact']
+			'infectionsByRequestedTime' => (int) $infections_by_requested_time['severe_impact'],
+			'severeCasesByRequestedTime' => (int) $severe_cases_by_requested_time['severe_impact'],
+			'hospitalBedsByRequestedTime' => (int) $hospital_beds_by_requested_time['severe_impact']
 		]
 	];
 
