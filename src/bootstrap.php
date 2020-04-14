@@ -7,7 +7,7 @@ require '../vendor/autoload.php';
 require_once 'config/config.php';
 
 // Load the helper files
-require_once 'Helper/estimator.php';
+require_once 'estimator.php';
 
 
 // autoload classes
