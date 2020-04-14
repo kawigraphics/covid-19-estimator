@@ -6,11 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 
-    <title>Contact Us | Pita Safaris</title>
+    <title>Covid 19 Estimator</title>
 
-    <meta name="title" content="Contact Us | Pita Safaris">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="keywords" content="Covid 19, Estimator">
+    <meta name="description" content="Covid 19 Estimator">
 
     <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/css/font-awesome.css">

@@ -67,9 +67,9 @@
 
                     <!-- Submit Results -->
                     <fieldset>
-                        <input type="submit" data-go-estimate value="submit" class="mv2 btn btn-lg btn-block text-uppercase txt-white" style="background: #f56729;">
+                        <input type="submit" data-go-estimate value="calculate" class="mv2 btn btn-lg btn-block text-uppercase txt-white" style="background: #f56729;">
                         <div class="signup-terms">
-                            <small> By clicking on <strong>SUBMIT</strong>, you acknowledge having read our&nbsp;<a href="#">Privacy notice</small>
+                            <small> By clicking on <strong>CALCULATE</strong>, you acknowledge having read our&nbsp;<a href="#">Privacy notice</small>
                         </div>
                     </fieldset>
                     <!-- Submit Results -->
