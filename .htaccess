@@ -1,0 +1,205 @@
+# # Use UTF-8 encoding for anything served text/plain or text/html
+# AddDefaultCharset utf-8
+# DirectoryIndex index.php index.htm index.html
+
+# # Force UTF-8 for a number of file formats
+# AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
+
+# <IfModule mod_headers.c>
+#     BrowserMatch MSIE is-msie
+#     Header set X-UA-Compatible IE=edge env=is-msie
+# </IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # RewriteCond %{HTTPS} !on
+  # RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+  # RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$ 
+  # RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  RewriteRule ^$ public/ [L]
+  RewriteRule (.*) public/$1 [L]
+
+#   RewriteRule ^robots.txt$ /robots.php [L]
+</IfModule>
+
+# <IfModule mod_headers.c>
+#     Header unset ETag
+# </IfModule>
+# FileETag None
+
+# <IfModule mod_headers.c>
+#     Header set Connection keep-alive
+# </IfModule>
+
+# # One Year for most static assets
+# <filesMatch ".(css|jpg|jpeg|png|gif|js|ico)$">
+#   Header set Cache-Control "max-age=31557600, public"
+# </filesMatch>
+
+
+# # BEGIN GZIP
+# <IfModule mod_deflate.c>
+#     # Force compression for mangled headers.
+#     # https://developer.yahoo.com/blogs/ydn/pushing-beyond-gzipping-25601.html
+#     <IfModule mod_setenvif.c>
+#         <IfModule mod_headers.c>
+#             SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+#             RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+#         </IfModule>
+#     </IfModule>
+
+#     # Compress all output labeled with one of the following MIME-types
+#     # (for Apache versions below 2.3.7, you don't need to enable `mod_filter`
+#     #  and can remove the `<IfModule mod_filter.c>` and `</IfModule>` lines
+#     #  as `AddOutputFilterByType` is still in the core directives).
+#     <IfModule mod_filter.c>
+#         AddOutputFilterByType DEFLATE application/atom+xml \
+#                                       application/javascript \
+#                                       application/json \
+#                                       application/rss+xml \
+#                                       application/vnd.ms-fontobject \
+#                                       application/x-font-ttf \
+#                                       application/x-web-app-manifest+json \
+#                                       application/xhtml+xml \
+#                                       application/xml \
+#                                       font/opentype \
+#                                       image/svg+xml \
+#                                       image/x-icon \
+#                                       text/css \
+#                                       text/html \
+#                                       text/plain \
+#                                       text/x-component \
+#                                       text/xml
+#     </IfModule>
+# </IfModule>
+
+# <IfModule mod_gzip.c>
+#     mod_gzip_on Yes
+#     mod_gzip_dechunk Yes
+#     mod_gzip_item_include file      \.(html?|txt|css|js|php|pl)$
+#     mod_gzip_item_include handler   ^cgi-script$
+#     mod_gzip_item_include mime      ^text/.*
+#     mod_gzip_item_include mime      ^application/font-otf
+#     mod_gzip_item_include mime      ^application/font-ttf
+#     mod_gzip_item_include mime      ^application/font-woff
+#     mod_gzip_item_include mime      ^application/vnd.ms-fontobject
+#     mod_gzip_item_include mime      ^application/x-javascript.*
+#     mod_gzip_item_exclude mime      ^image/.*
+#     mod_gzip_item_include mime      ^image/svg+xml*
+#     mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+# </IfModule>
+# # END GZIP
+
+# <IfModule mod_expires.c>
+
+#     ExpiresActive On
+
+#     # Default expiration: 1 hour after request
+#     ExpiresDefault "access plus 1 month"
+
+#     # CSS and JS expiration
+#     ExpiresByType text/css "access 1 month"
+#     ExpiresByType text/javascript "access 1 month"
+#     ExpiresByType application/javascript "access 1 month"
+#     ExpiresByType application/x-javascript "access 1 month"
+
+#     # webfonts
+#     ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+#     ExpiresByType application/x-font-woff "access 1 year"
+#     ExpiresByType application/x-font-woff2 "access 1 year"
+#     ExpiresByType font/eot "access plus 1 month"
+#     ExpiresByType font/truetype "access 1 year"
+#     ExpiresByType font/opentype "access 1 year"
+#     ExpiresByType font/woff "access 1 year"
+#     ExpiresByType image/svg+xml "access 1 year"
+#     ExpiresByType application/vnd.ms-fontobject "access 1 year"
+#     ExpiresByType application/font-otf "access 1 year"
+#     ExpiresByType application/font-ttf "access 1 year"
+#     ExpiresByType application/font-woff "access 1 year"
+#     ExpiresByType application/x-font-ttf "access 1 year"
+
+#     # Media
+#     AddType image/vnd.microsoft.icon .cur
+#     ExpiresByType application/ico "access 1 year"
+#     ExpiresByType audio/ogg "access plus 1 month"
+#     ExpiresByType image/bmp "access plus 1 month"
+#     ExpiresByType image/gif "access 1 month"
+#     ExpiresByType image/ico "access 1 year"
+#     ExpiresByType image/icon "access 1 year"
+#     ExpiresByType image/jpg "access 1 month"
+#     ExpiresByType image/jpeg "access 1 month"
+#     ExpiresByType image/png "access 1 month"
+#     ExpiresByType image/svg+xml "access 1 month"
+#     ExpiresByType image/vnd.microsoft.icon "access 1 year"
+#     ExpiresByType image/webp "access 1 month"
+#     ExpiresByType image/x-icon "access 1 year"
+#     ExpiresByType text/ico "access 1 year"
+#     ExpiresByType video/mp4 "access plus 1 month"
+#     ExpiresByType video/ogg "access plus 1 month"
+#     ExpiresByType video/webm "access plus 1 month"
+
+#     # Flash
+#     ExpiresByType application/x-shockwave-flash "access plus 2 months"
+#     ExpiresByType image/swf "access plus 2592000 seconds"
+
+#     # Files
+#     ExpiresByType application/pdf "access 1 week"
+#     ExpiresByType application/x-gzip "access 1 month"
+#     ExpiresByType text/x-component "access 1 month"
+
+#     # Data
+#     ExpiresByType application/atom+xml "access plus 1 hour"
+#     ExpiresByType application/rdf+xml "access plus 1 hour"
+#     ExpiresByType application/rss+xml "access plus 1 hour"
+#     ExpiresByType text/html "access plus 0 seconds"
+#     ExpiresByType application/json "access plus 0 seconds"
+#     ExpiresByType application/ld+json  "access plus 0 seconds"
+#     ExpiresByType application/schema+json "access plus 0 seconds"
+#     ExpiresByType application/vnd.geo+json "access plus 0 seconds"
+#     ExpiresByType application/xml "access plus 0 seconds"
+#     ExpiresByType text/xml "access plus 0 seconds"
+
+#     ExpiresDefault "access 2 days"
+# </IfModule>
+
+# # Perhaps the MIME type of SWF is incorrect, in this case, the FileMatch will do the job
+# <IfModule mod_headers.c>
+#     <FilesMatch "\.(swf)$">
+#         Header set Expires "access plus 2592000 seconds"
+#     </FilesMatch>
+# </IfModule>
+
+# # Block access to files that can expose sensitive information.
+# <IfModule mod_authz_core.c>
+#     <FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|orig|psd|sh|sql|sw[op])|~)$">
+#         Require all denied
+#     </FilesMatch>
+# </IfModule>
+
+# # Prevent some browsers from MIME-sniffing the response.
+# <IfModule mod_headers.c>
+#     Header set X-Content-Type-Options "nosniff"
+# </IfModule>
+
+# # Remove the `X-Powered-By` response header that:
+# # https://php.net/manual/en/ini.core.php#ini.expose-php
+# <IfModule mod_headers.c>
+#     Header unset X-Powered-By
+#     Header always unset X-Powered-By
+# </IfModule>
+
+# <IfModule mod_mime.c>
+#     AddEncoding gzip              svgz
+# </IfModule>
+
+# ErrorDocument 500 /500.html
+# ErrorDocument 401 /401.html
+# ErrorDocument 404 /404.html
+
+
+# Log All Errors
+# php_flag display_errors on
+# php_flag display_startup_errors on
+# php_value error_log App/Logs/all_errors.log

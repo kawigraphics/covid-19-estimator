@@ -282,5 +282,5 @@ function covid19ImpactEstimator($data)
 }
 
 // Execute the Method
-covid19ImpactEstimator($data);
+// covid19ImpactEstimator($data);
 // covid19ImpactEstimator(file_get_contents('./data.json', true));
